@@ -1,0 +1,33 @@
+﻿@model BootstrapFileInput.Models.HomeVM
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<div class="jumbotron">
+    <h1>Bootstrap File Input MVC Example</h1>
+</div>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "submitForm", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor(x => x.DosyaAdi, new { @class = "control-label col-md-1 font-bold" })
+    <div class="col-md-4">
+        @Html.TextBox("DosyaAdi", Model.DosyaAdi, new { type = "file", @class = "form-control input-md" })
+        @Html.ValidationMessageFor(model => model.DosyaAdi, "", new { @class = "text-danger" })
+    </div>
+
+    <button class="btn btn-primary" id="btnSubmit" type="submit">
+        <span class="glyphicon glyphicon-floppy-save"></span> Kaydet
+    </button>
+}
+
+@section scripts{
+
+    <script>
+        $(function () {
+            //$("#DosyaAdi").fileinput();
+            $("#DosyaAdi").fileinput({ 'language': 'tr', 'showUpload': false, 'previewFileType': 'any' });
+        });
+    </script>
+}
